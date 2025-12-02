@@ -36,13 +36,6 @@ local function ShowNotification(Title, Message, Duration)
 end
 
 -- ===================== INLINE MODULES =====================
-    MessageLabel.Parent = Frame
-    
-    wait(Duration)
-    NotificationGui:Destroy()
-end
-
--- ===================== INLINE MODULES =====================
 
 -- UI Module
 local UIModule = {}
@@ -722,26 +715,6 @@ local function Initialize()
     
     -- Setup connections
     SetupConnections()
-    
-    -- Show notification
-    local NotificationGui = LocalPlayer:WaitForChild("PlayerGui")
-    local Notification = Instance.new("TextLabel")
-    Notification.Name = "Notification"
-    Notification.Text = "✅ Script Loaded v" .. GameVersion
-    Notification.BackgroundColor3 = Theme.Success
-    Notification.TextColor3 = Theme.TextColor
-    Notification.TextSize = 16
-    Notification.Font = Enum.Font.GothamBold
-    Notification.Size = UDim2.new(0.3, 0, 0.08, 0)
-    Notification.Position = UDim2.new(0.35, 0, 0.95, 0)
-    Notification.BorderSizePixel = 0
-    Notification.Parent = NotificationGui
-    
-    local NotifCorner = Instance.new("UICorner")
-    NotifCorner.CornerRadius = UDim.new(0, 6)
-    NotifCorner.Parent = Notification
-    
-    game:GetService("Debris"):AddItem(Notification, 3)
 end
 
 local function SetupConnections()
