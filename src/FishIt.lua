@@ -851,7 +851,7 @@ local function SetupConnections()
     -- Input handling
     UserInputService.InputBegan:Connect(function(Input, GameProcessed)
         if GameProcessed then return end
-        if Input.KeyCode == Enum.KeyCode.F1 then
+        if Input.KeyCode == Enum.KeyCode.R then
             UIModule.GUI.ScreenGui.Enabled = not UIModule.GUI.ScreenGui.Enabled
         end
     end)
