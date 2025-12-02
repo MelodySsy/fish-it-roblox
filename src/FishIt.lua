@@ -221,7 +221,6 @@ local function CreateUI()
     local UserGui = LocalPlayer:WaitForChild("PlayerGui", 5)
     
     if not UserGui then
-        ShowNotification("❌ ERROR", "Failed to access PlayerGui!", 5)
         return nil
     end
     
@@ -719,24 +718,13 @@ local function Initialize()
     -- Load config
     ConfigModule.Load("default")
     
-    -- Create UI with error handling
-    local UISuccess, UIError = pcall(function()
-        UIModule.GUI = CreateUI()
-    end)
-    
-    if not UISuccess then
-        ShowNotification("❌ UI Error", "Failed to create UI!", 8)
-        return false
-    end
-    
-    if not UIModule.GUI then
-        ShowNotification("❌ UI Error", "UI returned nil!", 8)
-        return false
-    end
+    -- Create UI
+    UIModule.GUI = CreateUI()
     
     -- Setup connections
-    SetupConnections()
-    return true
+    if UIModule.GUI then
+        SetupConnections()
+    end
 end
 
 local function SetupConnections()
@@ -783,10 +771,8 @@ local Success, Error = pcall(function()
     Initialize()
 end)
 
-if not Success then
-    ShowNotification("❌ Initialization Error", "Failed to initialize script!", 10)
-else
-    ShowNotification("✅ Script Loaded", "Fish It v" .. GameVersion .. " Ready!", 4)
+if Success then
+    ShowNotification("✅ Script Ready", "Fish It v" .. GameVersion .. " Loaded!", 3)
 end
 
 -- Keep script running
