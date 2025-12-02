@@ -383,6 +383,12 @@ local function CreateMainTabContent(Parent)
     Tab.Size = UDim2.new(1, 0, 0.5, 0)
     Tab.Parent = Parent
     
+    local Layout = Instance.new("UIListLayout")
+    Layout.FillDirection = Enum.FillDirection.Vertical
+    Layout.SortOrder = Enum.SortOrder.LayoutOrder
+    Layout.Padding = UDim.new(0, 8)
+    Layout.Parent = Tab
+    
     -- Local Player Section
     local PlayerSection = CreateSection("Local Player", Tab)
     CreateToggleButton("WalkSpeed", PlayerSection, function(value)
@@ -438,6 +444,12 @@ local function CreateAutomationTabContent(Parent)
     Tab.Parent = Parent
     Tab.Visible = false
     
+    local Layout = Instance.new("UIListLayout")
+    Layout.FillDirection = Enum.FillDirection.Vertical
+    Layout.SortOrder = Enum.SortOrder.LayoutOrder
+    Layout.Padding = UDim.new(0, 8)
+    Layout.Parent = Tab
+    
     -- Auto Fishing Section
     local FishingSection = CreateSection("Auto Fishing", Tab)
     
@@ -483,6 +495,12 @@ local function CreateQuestTabContent(Parent)
     Tab.Parent = Parent
     Tab.Visible = false
     
+    local Layout = Instance.new("UIListLayout")
+    Layout.FillDirection = Enum.FillDirection.Vertical
+    Layout.SortOrder = Enum.SortOrder.LayoutOrder
+    Layout.Padding = UDim.new(0, 8)
+    Layout.Parent = Tab
+    
     CreateToggleButton("Auto Quest: Lever Task", Tab, function(value) end)
     CreateToggleButton("Auto Quest: Ruin Task", Tab, function(value) end)
     CreateToggleButton("Auto Quest: Ghostfinn Rod", Tab, function(value) end)
@@ -496,6 +514,12 @@ local function CreateShopTabContent(Parent)
     Tab.Size = UDim2.new(1, 0, 0.5, 0)
     Tab.Parent = Parent
     Tab.Visible = false
+    
+    local Layout = Instance.new("UIListLayout")
+    Layout.FillDirection = Enum.FillDirection.Vertical
+    Layout.SortOrder = Enum.SortOrder.LayoutOrder
+    Layout.Padding = UDim.new(0, 8)
+    Layout.Parent = Tab
     
     CreateToggleButton("Auto Buy Rod", Tab, function(value) end)
     CreateToggleButton("Auto Buy Bobbers", Tab, function(value) end)
@@ -514,6 +538,12 @@ local function CreatePremiumTabContent(Parent)
     Tab.Parent = Parent
     Tab.Visible = false
     
+    local Layout = Instance.new("UIListLayout")
+    Layout.FillDirection = Enum.FillDirection.Vertical
+    Layout.SortOrder = Enum.SortOrder.LayoutOrder
+    Layout.Padding = UDim.new(0, 8)
+    Layout.Parent = Tab
+    
     CreateTextInput("Minimum Rod Config", Tab, "")
     CreateTextInput("Target Rod to Buy", Tab, "")
     CreateTextInput("Target Bait to Buy", Tab, "")
@@ -527,6 +557,12 @@ local function CreateSettingsTabContent(Parent)
     Tab.Size = UDim2.new(1, 0, 0.5, 0)
     Tab.Parent = Parent
     Tab.Visible = false
+    
+    local Layout = Instance.new("UIListLayout")
+    Layout.FillDirection = Enum.FillDirection.Vertical
+    Layout.SortOrder = Enum.SortOrder.LayoutOrder
+    Layout.Padding = UDim.new(0, 8)
+    Layout.Parent = Tab
     
     CreateTextInput("Discord Webhook URL", Tab, "")
     CreateToggleButton("Notifications", Tab, function(value) end)
