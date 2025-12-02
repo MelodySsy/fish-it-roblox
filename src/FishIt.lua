@@ -397,51 +397,95 @@ local function CreateMainTabContent(Parent)
     Layout.Padding = UDim.new(0, 8)
     Layout.Parent = Tab
     
-    -- Local Player Section
-    local PlayerSection = CreateSection("Local Player", Tab)
-    CreateToggleButton("WalkSpeed", PlayerSection, function(value)
-        if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid") then
-            LocalPlayer.Character.Humanoid.WalkSpeed = value and 30 or 16
-        end
+    -- Simple test labels and buttons
+    local TestLabel = Instance.new("TextLabel")
+    TestLabel.Text = "🎮 Local Player"
+    TestLabel.BackgroundColor3 = Color3.fromRGB(52, 73, 94)
+    TestLabel.TextColor3 = Color3.fromRGB(26, 188, 156)
+    TestLabel.TextSize = 14
+    TestLabel.Font = Enum.Font.GothamBold
+    TestLabel.Size = UDim2.new(1, 0, 0, 30)
+    TestLabel.Parent = Tab
+    
+    -- WalkSpeed Toggle
+    local WalkButton = Instance.new("TextButton")
+    WalkButton.Text = "WalkSpeed: OFF"
+    WalkButton.BackgroundColor3 = Color3.fromRGB(192, 57, 43)
+    WalkButton.TextColor3 = Color3.fromRGB(236, 240, 241)
+    WalkButton.TextSize = 12
+    WalkButton.Font = Enum.Font.GothamBold
+    WalkButton.Size = UDim2.new(1, 0, 0, 35)
+    WalkButton.Parent = Tab
+    
+    local WalkState = false
+    WalkButton.MouseButton1Click:Connect(function()
+        WalkState = not WalkState
+        WalkButton.Text = WalkState and "WalkSpeed: ON" or "WalkSpeed: OFF"
+        WalkButton.BackgroundColor3 = WalkState and Color3.fromRGB(39, 174, 96) or Color3.fromRGB(192, 57, 43)
     end)
     
-    CreateToggleButton("JumpPower", PlayerSection, function(value)
-        if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid") then
-            LocalPlayer.Character.Humanoid.JumpPower = value and 100 or 50
-        end
+    -- JumpPower Toggle
+    local JumpButton = Instance.new("TextButton")
+    JumpButton.Text = "JumpPower: OFF"
+    JumpButton.BackgroundColor3 = Color3.fromRGB(192, 57, 43)
+    JumpButton.TextColor3 = Color3.fromRGB(236, 240, 241)
+    JumpButton.TextSize = 12
+    JumpButton.Font = Enum.Font.GothamBold
+    JumpButton.Size = UDim2.new(1, 0, 0, 35)
+    JumpButton.Parent = Tab
+    
+    local JumpState = false
+    JumpButton.MouseButton1Click:Connect(function()
+        JumpState = not JumpState
+        JumpButton.Text = JumpState and "JumpPower: ON" or "JumpPower: OFF"
+        JumpButton.BackgroundColor3 = JumpState and Color3.fromRGB(39, 174, 96) or Color3.fromRGB(192, 57, 43)
     end)
     
-    CreateToggleButton("Freeze Position", PlayerSection, function(value)
-        if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-            LocalPlayer.Character.HumanoidRootPart.CanCollide = not value
-        end
+    -- Automation Label
+    local AutoLabel = Instance.new("TextLabel")
+    AutoLabel.Text = "🤖 Automation"
+    AutoLabel.BackgroundColor3 = Color3.fromRGB(52, 73, 94)
+    AutoLabel.TextColor3 = Color3.fromRGB(26, 188, 156)
+    AutoLabel.TextSize = 14
+    AutoLabel.Font = Enum.Font.GothamBold
+    AutoLabel.Size = UDim2.new(1, 0, 0, 30)
+    AutoLabel.Parent = Tab
+    
+    -- Auto Fishing Toggle
+    local FishButton = Instance.new("TextButton")
+    FishButton.Text = "Auto Fishing: OFF"
+    FishButton.BackgroundColor3 = Color3.fromRGB(192, 57, 43)
+    FishButton.TextColor3 = Color3.fromRGB(236, 240, 241)
+    FishButton.TextSize = 12
+    FishButton.Font = Enum.Font.GothamBold
+    FishButton.Size = UDim2.new(1, 0, 0, 35)
+    FishButton.Parent = Tab
+    
+    local FishState = false
+    FishButton.MouseButton1Click:Connect(function()
+        FishState = not FishState
+        FishButton.Text = FishState and "Auto Fishing: ON" or "Auto Fishing: OFF"
+        FishButton.BackgroundColor3 = FishState and Color3.fromRGB(39, 174, 96) or Color3.fromRGB(192, 57, 43)
+        AutomationModule.FishingActive = FishState
     end)
     
-    -- Location Saver Section
-    local LocationSection = CreateSection("Location Saver", Tab)
-    CreateButton("Save Spot", LocationSection, function()
-        local Position = LocalPlayer.Character.HumanoidRootPart.Position
-        ConfigModule.SaveLocation("CustomSpot", Position)
+    -- Auto Farming Toggle
+    local FarmButton = Instance.new("TextButton")
+    FarmButton.Text = "Auto Farming: OFF"
+    FarmButton.BackgroundColor3 = Color3.fromRGB(192, 57, 43)
+    FarmButton.TextColor3 = Color3.fromRGB(236, 240, 241)
+    FarmButton.TextSize = 12
+    FarmButton.Font = Enum.Font.GothamBold
+    FarmButton.Size = UDim2.new(1, 0, 0, 35)
+    FarmButton.Parent = Tab
+    
+    local FarmState = false
+    FarmButton.MouseButton1Click:Connect(function()
+        FarmState = not FarmState
+        FarmButton.Text = FarmState and "Auto Farming: ON" or "Auto Farming: OFF"
+        FarmButton.BackgroundColor3 = FarmState and Color3.fromRGB(39, 174, 96) or Color3.fromRGB(192, 57, 43)
+        AutomationModule.FarmingActive = FarmState
     end)
-    
-    CreateButton("Load Spot", LocationSection, function()
-        local Position = ConfigModule.LoadLocation("CustomSpot")
-        if Position then
-            LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Position)
-        end
-    end)
-    
-    CreateButton("Delete Spot", LocationSection, function()
-        ConfigModule.DeleteLocation("CustomSpot")
-    end)
-    
-    -- Teleport Section
-    local TeleportSection = CreateSection("Teleport", Tab)
-    local Locations = {"Island 1", "Island 2", "Island 3", "Fishing Spot", "Shop", "Custom Spot"}
-    
-    for _, Location in ipairs(Locations) do
-        CreateButton("TP: " .. Location, TeleportSection, function() end)
-    end
 end
 
 local function CreateAutomationTabContent(Parent)
@@ -457,41 +501,32 @@ local function CreateAutomationTabContent(Parent)
     Layout.Padding = UDim.new(0, 8)
     Layout.Parent = Tab
     
-    -- Auto Fishing Section
-    local FishingSection = CreateSection("Auto Fishing", Tab)
+    local Label = Instance.new("TextLabel")
+    Label.Text = "🎣 Fishing Modes"
+    Label.BackgroundColor3 = Color3.fromRGB(52, 73, 94)
+    Label.TextColor3 = Color3.fromRGB(26, 188, 156)
+    Label.TextSize = 14
+    Label.Font = Enum.Font.GothamBold
+    Label.Size = UDim2.new(1, 0, 0, 30)
+    Label.Parent = Tab
     
-    local Modes = {"Instant", "Legit", "Blatant"}
-    for _, Mode in ipairs(Modes) do
-        CreateToggleButton(Mode .. " Mode", FishingSection, function(value)
-            if value then
-                AutomationModule.FishingMode = Mode
-                AutomationModule.FishingActive = true
-            else
-                AutomationModule.FishingActive = false
-            end
+    for _, Mode in ipairs({"Instant", "Legit", "Blatant"}) do
+        local Btn = Instance.new("TextButton")
+        Btn.Text = Mode .. ": OFF"
+        Btn.BackgroundColor3 = Color3.fromRGB(192, 57, 43)
+        Btn.TextColor3 = Color3.fromRGB(236, 240, 241)
+        Btn.TextSize = 12
+        Btn.Font = Enum.Font.GothamBold
+        Btn.Size = UDim2.new(1, 0, 0, 35)
+        Btn.Parent = Tab
+        
+        local State = false
+        Btn.MouseButton1Click:Connect(function()
+            State = not State
+            Btn.Text = State and (Mode .. ": ON") or (Mode .. ": OFF")
+            Btn.BackgroundColor3 = State and Color3.fromRGB(39, 174, 96) or Color3.fromRGB(192, 57, 43)
         end)
     end
-    
-    CreateToggleButton("1 Second 5 Fish Mode", FishingSection, function(value)
-        AutomationModule.FishingConfig.OneSecondFiveFish = value
-    end)
-    
-    CreateToggleButton("Auto Farming", Tab, function(value)
-        AutomationModule.FarmingActive = value
-    end)
-    
-    CreateToggleButton("Auto Totems", Tab, function(value)
-        AutomationModule.TotemActive = value
-    end)
-    
-    CreateToggleButton("Auto Favorite/Unfavorite", Tab, function(value) end)
-    CreateToggleButton("Auto Trade", Tab, function(value)
-        AutomationModule.TradeActive = value
-    end)
-    
-    CreateToggleButton("Auto Enchants 1", Tab, function(value) end)
-    CreateToggleButton("Auto Enchants 2", Tab, function(value) end)
-    CreateToggleButton("Auto Claim Battlepass", Tab, function(value) end)
 end
 
 local function CreateQuestTabContent(Parent)
@@ -507,10 +542,23 @@ local function CreateQuestTabContent(Parent)
     Layout.Padding = UDim.new(0, 8)
     Layout.Parent = Tab
     
-    CreateToggleButton("Auto Quest: Lever Task", Tab, function(value) end)
-    CreateToggleButton("Auto Quest: Ruin Task", Tab, function(value) end)
-    CreateToggleButton("Auto Quest: Ghostfinn Rod", Tab, function(value) end)
-    CreateToggleButton("Auto Quest: Element Rod", Tab, function(value) end)
+    for _, Quest in ipairs({"Lever Task", "Ruin Task", "Ghostfinn Rod", "Element Rod"}) do
+        local Btn = Instance.new("TextButton")
+        Btn.Text = Quest .. ": OFF"
+        Btn.BackgroundColor3 = Color3.fromRGB(192, 57, 43)
+        Btn.TextColor3 = Color3.fromRGB(236, 240, 241)
+        Btn.TextSize = 12
+        Btn.Font = Enum.Font.GothamBold
+        Btn.Size = UDim2.new(1, 0, 0, 35)
+        Btn.Parent = Tab
+        
+        local State = false
+        Btn.MouseButton1Click:Connect(function()
+            State = not State
+            Btn.Text = State and (Quest .. ": ON") or (Quest .. ": OFF")
+            Btn.BackgroundColor3 = State and Color3.fromRGB(39, 174, 96) or Color3.fromRGB(192, 57, 43)
+        end)
+    end
 end
 
 local function CreateShopTabContent(Parent)
@@ -526,13 +574,23 @@ local function CreateShopTabContent(Parent)
     Layout.Padding = UDim.new(0, 8)
     Layout.Parent = Tab
     
-    CreateToggleButton("Auto Buy Rod", Tab, function(value) end)
-    CreateToggleButton("Auto Buy Bobbers", Tab, function(value) end)
-    CreateToggleButton("Auto Buy Traveling Merchant", Tab, function(value) end)
-    CreateToggleButton("Auto Buy Tix Shop", Tab, function(value) end)
-    CreateToggleButton("Auto Sell", Tab, function(value) end)
-    CreateToggleButton("Auto Sell Enchant Stone", Tab, function(value) end)
-    CreateToggleButton("Auto Weather", Tab, function(value) end)
+    for _, Item in ipairs({"Auto Buy Rod", "Auto Buy Bobbers", "Auto Sell", "Auto Weather"}) do
+        local Btn = Instance.new("TextButton")
+        Btn.Text = Item .. ": OFF"
+        Btn.BackgroundColor3 = Color3.fromRGB(192, 57, 43)
+        Btn.TextColor3 = Color3.fromRGB(236, 240, 241)
+        Btn.TextSize = 12
+        Btn.Font = Enum.Font.GothamBold
+        Btn.Size = UDim2.new(1, 0, 0, 35)
+        Btn.Parent = Tab
+        
+        local State = false
+        Btn.MouseButton1Click:Connect(function()
+            State = not State
+            Btn.Text = State and (Item .. ": ON") or (Item .. ": OFF")
+            Btn.BackgroundColor3 = State and Color3.fromRGB(39, 174, 96) or Color3.fromRGB(192, 57, 43)
+        end)
+    end
 end
 
 local function CreatePremiumTabContent(Parent)
@@ -548,10 +606,21 @@ local function CreatePremiumTabContent(Parent)
     Layout.Padding = UDim.new(0, 8)
     Layout.Parent = Tab
     
-    CreateTextInput("Minimum Rod Config", Tab, "")
-    CreateTextInput("Target Rod to Buy", Tab, "")
-    CreateTextInput("Target Bait to Buy", Tab, "")
-    CreateToggleButton("MFS Mode", Tab, function(value) end)
+    local Btn = Instance.new("TextButton")
+    Btn.Text = "MFS Mode: OFF"
+    Btn.BackgroundColor3 = Color3.fromRGB(192, 57, 43)
+    Btn.TextColor3 = Color3.fromRGB(236, 240, 241)
+    Btn.TextSize = 12
+    Btn.Font = Enum.Font.GothamBold
+    Btn.Size = UDim2.new(1, 0, 0, 35)
+    Btn.Parent = Tab
+    
+    local State = false
+    Btn.MouseButton1Click:Connect(function()
+        State = not State
+        Btn.Text = State and "MFS Mode: ON" or "MFS Mode: OFF"
+        Btn.BackgroundColor3 = State and Color3.fromRGB(39, 174, 96) or Color3.fromRGB(192, 57, 43)
+    end)
 end
 
 local function CreateSettingsTabContent(Parent)
@@ -567,24 +636,23 @@ local function CreateSettingsTabContent(Parent)
     Layout.Padding = UDim.new(0, 8)
     Layout.Parent = Tab
     
-    CreateTextInput("Discord Webhook URL", Tab, "")
-    CreateToggleButton("Notifications", Tab, function(value) end)
-    CreateToggleButton("FPS Unlock", Tab, function(value)
-        if value then
-            setfpscap(999)
-        else
-            setfpscap(60)
-        end
-    end)
-    
-    CreateToggleButton("Low Graphics", Tab, function(value) end)
-    CreateButton("Save Config", Tab, function()
-        ConfigModule.Save("default")
-    end)
-    CreateButton("Load Config", Tab, function()
-        ConfigModule.Load("default")
-    end)
-    CreateButton("Auto Update Check", Tab, function() end)
+    for _, Setting in ipairs({"Notifications", "FPS Unlock", "Low Graphics"}) do
+        local Btn = Instance.new("TextButton")
+        Btn.Text = Setting .. ": OFF"
+        Btn.BackgroundColor3 = Color3.fromRGB(192, 57, 43)
+        Btn.TextColor3 = Color3.fromRGB(236, 240, 241)
+        Btn.TextSize = 12
+        Btn.Font = Enum.Font.GothamBold
+        Btn.Size = UDim2.new(1, 0, 0, 35)
+        Btn.Parent = Tab
+        
+        local State = false
+        Btn.MouseButton1Click:Connect(function()
+            State = not State
+            Btn.Text = State and (Setting .. ": ON") or (Setting .. ": OFF")
+            Btn.BackgroundColor3 = State and Color3.fromRGB(39, 174, 96) or Color3.fromRGB(192, 57, 43)
+        end)
+    end
 end
 
 local function CreateSection(Title, Parent)
