@@ -22,6 +22,109 @@ local Character = LocalPlayer.Character
 local Humanoid = Character and Character:FindFirstChild("Humanoid")
 local RootPart = Character and Character:FindFirstChild("HumanoidRootPart")
 
+-- ===================== NOTIFICATION SYSTEM =====================
+local function ShowErrorNotification(Title, Message, Duration)
+    Duration = Duration or 8
+    
+    local Players = game:GetService("Players")
+    local PlayerGui = Players.LocalPlayer:WaitForChild("PlayerGui")
+    
+    local NotificationGui = Instance.new("ScreenGui")
+    NotificationGui.Name = "ErrorNotification"
+    NotificationGui.ResetOnSpawn = false
+    NotificationGui.ZIndex = 999
+    NotificationGui.Parent = PlayerGui
+    
+    local Frame = Instance.new("Frame")
+    Frame.Name = "ErrorFrame"
+    Frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    Frame.BorderColor3 = Color3.fromRGB(255, 50, 50)
+    Frame.BorderSizePixel = 2
+    Frame.Size = UDim2.new(0, 450, 0, 120)
+    Frame.Position = UDim2.new(0.5, -225, 0, 20)
+    Frame.Parent = NotificationGui
+    
+    local TitleLabel = Instance.new("TextLabel")
+    TitleLabel.Name = "Title"
+    TitleLabel.Text = "❌ " .. Title
+    TitleLabel.TextColor3 = Color3.fromRGB(255, 100, 100)
+    TitleLabel.BackgroundTransparency = 1
+    TitleLabel.TextSize = 16
+    TitleLabel.Font = Enum.Font.GothamBold
+    TitleLabel.Size = UDim2.new(1, -10, 0, 30)
+    TitleLabel.Position = UDim2.new(0, 5, 0, 5)
+    TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
+    TitleLabel.Parent = Frame
+    
+    local MessageLabel = Instance.new("TextLabel")
+    MessageLabel.Name = "Message"
+    MessageLabel.Text = Message
+    MessageLabel.TextColor3 = Color3.fromRGB(220, 220, 220)
+    MessageLabel.BackgroundTransparency = 1
+    MessageLabel.TextSize = 12
+    MessageLabel.Font = Enum.Font.Gotham
+    MessageLabel.Size = UDim2.new(1, -10, 1, -40)
+    MessageLabel.Position = UDim2.new(0, 5, 0, 35)
+    MessageLabel.TextXAlignment = Enum.TextXAlignment.Left
+    MessageLabel.TextYAlignment = Enum.TextYAlignment.Top
+    MessageLabel.TextWrapped = true
+    MessageLabel.Parent = Frame
+    
+    wait(Duration)
+    NotificationGui:Destroy()
+end
+
+local function ShowSuccessNotification(Title, Message, Duration)
+    Duration = Duration or 3
+    
+    local Players = game:GetService("Players")
+    local PlayerGui = Players.LocalPlayer:WaitForChild("PlayerGui")
+    
+    local NotificationGui = Instance.new("ScreenGui")
+    NotificationGui.Name = "SuccessNotification"
+    NotificationGui.ResetOnSpawn = false
+    NotificationGui.ZIndex = 999
+    NotificationGui.Parent = PlayerGui
+    
+    local Frame = Instance.new("Frame")
+    Frame.Name = "SuccessFrame"
+    Frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    Frame.BorderColor3 = Color3.fromRGB(50, 200, 100)
+    Frame.BorderSizePixel = 2
+    Frame.Size = UDim2.new(0, 400, 0, 80)
+    Frame.Position = UDim2.new(0.5, -200, 0, 20)
+    Frame.Parent = NotificationGui
+    
+    local TitleLabel = Instance.new("TextLabel")
+    TitleLabel.Name = "Title"
+    TitleLabel.Text = "✅ " .. Title
+    TitleLabel.TextColor3 = Color3.fromRGB(100, 200, 100)
+    TitleLabel.BackgroundTransparency = 1
+    TitleLabel.TextSize = 14
+    TitleLabel.Font = Enum.Font.GothamBold
+    TitleLabel.Size = UDim2.new(1, -10, 0, 25)
+    TitleLabel.Position = UDim2.new(0, 5, 0, 5)
+    TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
+    TitleLabel.Parent = Frame
+    
+    local MessageLabel = Instance.new("TextLabel")
+    MessageLabel.Name = "Message"
+    MessageLabel.Text = Message
+    MessageLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
+    MessageLabel.BackgroundTransparency = 1
+    MessageLabel.TextSize = 11
+    MessageLabel.Font = Enum.Font.Gotham
+    MessageLabel.Size = UDim2.new(1, -10, 1, -30)
+    MessageLabel.Position = UDim2.new(0, 5, 0, 30)
+    MessageLabel.TextXAlignment = Enum.TextXAlignment.Left
+    MessageLabel.TextYAlignment = Enum.TextYAlignment.Top
+    MessageLabel.TextWrapped = true
+    MessageLabel.Parent = Frame
+    
+    wait(Duration)
+    NotificationGui:Destroy()
+end
+
 -- ===================== INLINE MODULES =====================
 
 -- UI Module
@@ -764,7 +867,15 @@ end
 
 -- Wait for game to load
 wait(2)
-Initialize()
+local Success, Error = pcall(function()
+    Initialize()
+end)
+
+if not Success then
+    ShowErrorNotification("Initialization Error", "Failed to initialize script: " .. tostring(Error), 10)
+else
+    ShowSuccessNotification("Script Loaded", "✅ Fish It v" .. GameVersion .. " Ready!", 4)
+end
 
 -- Keep script running
 while ScriptEnabled do
