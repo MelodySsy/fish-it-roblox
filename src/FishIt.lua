@@ -18,7 +18,11 @@ local HttpService = game:GetService("HttpService")
 
 -- Local Player
 local LocalPlayer = Players.LocalPlayer
-local Character = LocalPlayer.Character
+if not LocalPlayer then
+    LocalPlayer = Players:WaitForChild("LocalPlayer")
+end
+
+local Character = LocalPlayer.Character or LocalPlayer:WaitForChild("Character")
 local Humanoid = Character and Character:FindFirstChild("Humanoid")
 local RootPart = Character and Character:FindFirstChild("HumanoidRootPart")
 
@@ -214,7 +218,12 @@ end
 -- ===================== UI FUNCTIONS =====================
 
 local function CreateUI()
-    local UserGui = LocalPlayer:WaitForChild("PlayerGui")
+    local UserGui = LocalPlayer:WaitForChild("PlayerGui", 5)
+    
+    if not UserGui then
+        ShowNotification("❌ ERROR", "Failed to access PlayerGui!", 5)
+        return nil
+    end
     
     local ScreenGui = Instance.new("ScreenGui")
     ScreenGui.Name = "FishItGui"
@@ -710,11 +719,24 @@ local function Initialize()
     -- Load config
     ConfigModule.Load("default")
     
-    -- Create UI
-    UIModule.GUI = CreateUI()
+    -- Create UI with error handling
+    local UISuccess, UIError = pcall(function()
+        UIModule.GUI = CreateUI()
+    end)
+    
+    if not UISuccess then
+        ShowNotification("❌ UI Error", "Failed to create UI!", 8)
+        return false
+    end
+    
+    if not UIModule.GUI then
+        ShowNotification("❌ UI Error", "UI returned nil!", 8)
+        return false
+    end
     
     -- Setup connections
     SetupConnections()
+    return true
 end
 
 local function SetupConnections()
