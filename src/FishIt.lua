@@ -354,6 +354,13 @@ local function CreateUI()
     CreatePremiumTabContent(ContentFrame)
     CreateSettingsTabContent(ContentFrame)
     
+    -- Hide non-Main tabs initially
+    for _, Tab in ipairs(ContentFrame:GetChildren()) do
+        if Tab:IsA("Frame") and Tab.Name ~= "MainTab" and Tab.Name ~= "UIListLayout" and Tab.Name ~= "UIPadding" then
+            Tab.Visible = false
+        end
+    end
+    
     return {
         ScreenGui = ScreenGui,
         MainFrame = MainFrame,
@@ -382,6 +389,7 @@ local function CreateMainTabContent(Parent)
     Tab.BackgroundTransparency = 1
     Tab.Size = UDim2.new(1, 0, 0, 0)
     Tab.Parent = Parent
+    Tab.Visible = true
     
     local Layout = Instance.new("UIListLayout")
     Layout.FillDirection = Enum.FillDirection.Vertical
@@ -442,7 +450,6 @@ local function CreateAutomationTabContent(Parent)
     Tab.BackgroundTransparency = 1
     Tab.Size = UDim2.new(1, 0, 0, 0)
     Tab.Parent = Parent
-    Tab.Visible = false
     
     local Layout = Instance.new("UIListLayout")
     Layout.FillDirection = Enum.FillDirection.Vertical
@@ -493,7 +500,6 @@ local function CreateQuestTabContent(Parent)
     Tab.BackgroundTransparency = 1
     Tab.Size = UDim2.new(1, 0, 0, 0)
     Tab.Parent = Parent
-    Tab.Visible = false
     
     local Layout = Instance.new("UIListLayout")
     Layout.FillDirection = Enum.FillDirection.Vertical
@@ -513,7 +519,6 @@ local function CreateShopTabContent(Parent)
     Tab.BackgroundTransparency = 1
     Tab.Size = UDim2.new(1, 0, 0, 0)
     Tab.Parent = Parent
-    Tab.Visible = false
     
     local Layout = Instance.new("UIListLayout")
     Layout.FillDirection = Enum.FillDirection.Vertical
@@ -536,7 +541,6 @@ local function CreatePremiumTabContent(Parent)
     Tab.BackgroundTransparency = 1
     Tab.Size = UDim2.new(1, 0, 0, 0)
     Tab.Parent = Parent
-    Tab.Visible = false
     
     local Layout = Instance.new("UIListLayout")
     Layout.FillDirection = Enum.FillDirection.Vertical
@@ -556,7 +560,6 @@ local function CreateSettingsTabContent(Parent)
     Tab.BackgroundTransparency = 1
     Tab.Size = UDim2.new(1, 0, 0, 0)
     Tab.Parent = Parent
-    Tab.Visible = false
     
     local Layout = Instance.new("UIListLayout")
     Layout.FillDirection = Enum.FillDirection.Vertical
@@ -716,8 +719,8 @@ end
 local function SwitchTab(TabName, TabContainer, TabButton)
     local ContentFrame = TabContainer.Parent.ContentFrame
     for _, Tab in ipairs(ContentFrame:GetChildren()) do
-        if Tab:IsA("Frame") then
-            Tab.Visible = Tab.Name == TabName .. "Tab"
+        if Tab:IsA("Frame") and Tab.Name ~= "UIListLayout" and Tab.Name ~= "UIPadding" then
+            Tab.Visible = (Tab.Name == TabName .. "Tab")
         end
     end
     
