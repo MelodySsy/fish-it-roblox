@@ -380,7 +380,7 @@ local function CreateMainTabContent(Parent)
     local Tab = Instance.new("Frame")
     Tab.Name = "MainTab"
     Tab.BackgroundTransparency = 1
-    Tab.Size = UDim2.new(1, 0, 0.5, 0)
+    Tab.Size = UDim2.new(1, 0, 0, 0)
     Tab.Parent = Parent
     
     local Layout = Instance.new("UIListLayout")
@@ -440,7 +440,7 @@ local function CreateAutomationTabContent(Parent)
     local Tab = Instance.new("Frame")
     Tab.Name = "AutomationTab"
     Tab.BackgroundTransparency = 1
-    Tab.Size = UDim2.new(1, 0, 1, 0)
+    Tab.Size = UDim2.new(1, 0, 0, 0)
     Tab.Parent = Parent
     Tab.Visible = false
     
@@ -491,7 +491,7 @@ local function CreateQuestTabContent(Parent)
     local Tab = Instance.new("Frame")
     Tab.Name = "QuestTab"
     Tab.BackgroundTransparency = 1
-    Tab.Size = UDim2.new(1, 0, 0.3, 0)
+    Tab.Size = UDim2.new(1, 0, 0, 0)
     Tab.Parent = Parent
     Tab.Visible = false
     
@@ -511,7 +511,7 @@ local function CreateShopTabContent(Parent)
     local Tab = Instance.new("Frame")
     Tab.Name = "ShopTab"
     Tab.BackgroundTransparency = 1
-    Tab.Size = UDim2.new(1, 0, 0.5, 0)
+    Tab.Size = UDim2.new(1, 0, 0, 0)
     Tab.Parent = Parent
     Tab.Visible = false
     
@@ -534,7 +534,7 @@ local function CreatePremiumTabContent(Parent)
     local Tab = Instance.new("Frame")
     Tab.Name = "PremiumTab"
     Tab.BackgroundTransparency = 1
-    Tab.Size = UDim2.new(1, 0, 0.3, 0)
+    Tab.Size = UDim2.new(1, 0, 0, 0)
     Tab.Parent = Parent
     Tab.Visible = false
     
@@ -554,7 +554,7 @@ local function CreateSettingsTabContent(Parent)
     local Tab = Instance.new("Frame")
     Tab.Name = "SettingsTab"
     Tab.BackgroundTransparency = 1
-    Tab.Size = UDim2.new(1, 0, 0.5, 0)
+    Tab.Size = UDim2.new(1, 0, 0, 0)
     Tab.Parent = Parent
     Tab.Visible = false
     
@@ -588,7 +588,7 @@ local function CreateSection(Title, Parent)
     local Section = Instance.new("Frame")
     Section.BackgroundColor3 = Color3.fromRGB(52, 73, 94)
     Section.BorderSizePixel = 0
-    Section.Size = UDim2.new(1, 0, 0.2, 0)
+    Section.Size = UDim2.new(1, 0, 0, 0)
     Section.Parent = Parent
     
     local Corner = Instance.new("UICorner")
@@ -618,7 +618,7 @@ local function CreateToggleButton(Label, Parent, Callback)
     local Container = Instance.new("Frame")
     Container.BackgroundColor3 = Color3.fromRGB(44, 62, 80)
     Container.BorderSizePixel = 0
-    Container.Size = UDim2.new(1, 0, 0.08, 0)
+    Container.Size = UDim2.new(1, 0, 0, 30)
     Container.Parent = Parent
     
     local Label_Text = Instance.new("TextLabel")
@@ -662,7 +662,7 @@ local function CreateButton(Label, Parent, Callback)
     Button.TextColor3 = Color3.fromRGB(236, 240, 241)
     Button.TextSize = 11
     Button.Font = Enum.Font.GothamBold
-    Button.Size = UDim2.new(1, 0, 0.08, 0)
+    Button.Size = UDim2.new(1, 0, 0, 30)
     Button.BorderSizePixel = 0
     Button.Parent = Parent
     
@@ -682,7 +682,7 @@ end
 local function CreateTextInput(Label, Parent, DefaultValue)
     local Container = Instance.new("Frame")
     Container.BackgroundTransparency = 1
-    Container.Size = UDim2.new(1, 0, 0.1, 0)
+    Container.Size = UDim2.new(1, 0, 0, 50)
     Container.Parent = Parent
     
     local Label_Text = Instance.new("TextLabel")
