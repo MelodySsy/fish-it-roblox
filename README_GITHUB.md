@@ -2,9 +2,9 @@
 
 > **One-liner executor:**
 ```lua
-loadstring(game:HttpGet('https://raw.githubusercontent.com/YOUR_USERNAME/fish-it-roblox/main/loader.lua'))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/MelodySsy/fish-it-roblox/main/loader.lua'))()
 ```
-> Just replace `YOUR_USERNAME` dengan GitHub username Anda!
+> Copy & paste directly, no replacement needed!
 
 ---
 
@@ -45,7 +45,7 @@ loadstring(game:HttpGet('https://raw.githubusercontent.com/YOUR_USERNAME/fish-it
 1. **Open your Roblox executor** (Volcano, Delta, Synapse X, etc.)
 2. **Paste this command:**
 ```lua
-loadstring(game:HttpGet('https://raw.githubusercontent.com/YOUR_USERNAME/fish-it-roblox/main/loader.lua'))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/MelodySsy/fish-it-roblox/main/loader.lua'))()
 ```
 3. **Execute!**
 4. **Press F1** to show UI

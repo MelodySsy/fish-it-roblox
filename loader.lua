@@ -1,9 +1,9 @@
 -- 🐟 FISH IT - Loader Script
 -- Execute this in Roblox executor to load the script from GitHub
--- loadstring(game:HttpGet('https://raw.githubusercontent.com/YOUR_USERNAME/fish-it-roblox/main/loader.lua'))()
+-- loadstring(game:HttpGet('https://raw.githubusercontent.com/MelodySsy/fish-it-roblox/main/loader.lua'))()
 
 local GameVersion = "1.0.0"
-local GitHubRawURL = "https://raw.githubusercontent.com/YOUR_USERNAME/fish-it-roblox/main"
+local GitHubRawURL = "https://raw.githubusercontent.com/MelodySsy/fish-it-roblox/main"
 
 -- Function to load script from GitHub
 local function LoadScriptFromGitHub(ScriptPath)
