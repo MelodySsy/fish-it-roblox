@@ -228,15 +228,14 @@ local function CreateUI()
     ScreenGui.Name = "FishItGui"
     ScreenGui.ResetOnSpawn = false
     ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-    ScreenGui.Size = UDim2.new(0.4, 0, 0.6, 0)
-    ScreenGui.Position = UDim2.new(0, 10, 0, 10)
     ScreenGui.Parent = UserGui
     
     local MainFrame = Instance.new("Frame")
     MainFrame.Name = "MainFrame"
     MainFrame.BackgroundColor3 = Theme.Background
     MainFrame.BorderSizePixel = 0
-    MainFrame.Size = UDim2.new(1, 0, 1, 0)
+    MainFrame.Size = UDim2.new(0.4, 0, 0.6, 0)
+    MainFrame.Position = UDim2.new(0, 10, 0, 10)
     MainFrame.Parent = ScreenGui
     
     local UICorner = Instance.new("UICorner")
